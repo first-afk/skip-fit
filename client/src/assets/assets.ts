@@ -1,5 +1,5 @@
 import { CoffeeIcon, CookieIcon, MoonIcon, SunIcon } from "lucide-react";
-import type { UserData, FoodEntry, ActivityEntry } from "../types";
+import type { UserData, ActivityEntry } from "../types";
 
 export const dummyUser: UserData & { id: string; email: string; username: string } = {
     id: "user_123",
@@ -15,26 +15,26 @@ export const dummyUser: UserData & { id: string; email: string; username: string
     createdAt: new Date().toISOString(),
 };
 
-export const dummyFoodLogs: FoodEntry[] = [
-    {
-        id: "food_1",
-        documentId: "doc_food_1",
-        name: "Oatmeal with Blueberries",
-        calories: 300,
-        mealType: "breakfast",
-        date: new Date().toISOString().split("T")[0],
-        createdAt: new Date().toISOString(),
-    },
-    {
-        id: "food_2",
-        documentId: "doc_food_2",
-        name: "Grilled Chicken Salad",
-        calories: 450,
-        mealType: "lunch",
-        date: new Date().toISOString().split("T")[0],
-        createdAt: new Date().toISOString(),
-    },
-];
+// export const dummyFoodLogs: FoodEntry[] = [
+//     {
+//         id: "food_1",
+//         documentId: "doc_food_1",
+//         name: "Oatmeal with Blueberries",
+//         calories: 300,
+//         mealType: "breakfast",
+//         date: new Date().toISOString().split("T")[0],
+//         createdAt: new Date().toISOString(),
+//     },
+//     {
+//         id: "food_2",
+//         documentId: "doc_food_2",
+//         name: "Grilled Chicken Salad",
+//         calories: 450,
+//         mealType: "lunch",
+//         date: new Date().toISOString().split("T")[0],
+//         createdAt: new Date().toISOString(),
+//     },
+// ];
 
 export const dummyActivityLogs: ActivityEntry[] = [
     {

@@ -1,12 +1,15 @@
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const Layout = () => {
   return (
-    <div>
-      layout
-      <Outlet />
+    <div className="layout-container">
+      <Sidebar />
+      <div className="flex-1 overflow-y-scroll">
+        <Outlet />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

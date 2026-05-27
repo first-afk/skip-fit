@@ -5,7 +5,7 @@ import Activity from "./pages/Activity"
 import Profile from "./pages/Profile"
 import { useAppContext } from "./context/AppContext"
 import Login from "./pages/Login"
-import Loading from "./components/ui/Loading"
+import Loading from "./components/Loading"
 import Onboarding from "./pages/Onboarding"
 
 const App = () => {

@@ -1,9 +1,11 @@
-import { dummyUser, dummyFoodLogs, dummyActivityLogs } from "../assets/assets";
-import type { UserData, FoodEntry, ActivityEntry, FormData } from "../types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { dummyUser, dummyActivityLogs } from "../assets/assets";
+import type { UserData, ActivityEntry, FormData } from "../types";
 
 interface DB {
     user: any;
-    foodLogs: FoodEntry[];
+    // foodLogs: FoodEntry[];
     activityLogs: ActivityEntry[];
 }
 
@@ -12,7 +14,7 @@ const getDB = (): DB => {
     if (!dbStr) {
         const initialDB: DB = {
             user: null,
-            foodLogs: [],
+            // foodLogs: [],
             activityLogs: [],
         };
         return initialDB;
@@ -38,7 +40,7 @@ const mockApi = {
                     email: credentials.identifier || credentials.email,
                     username: (credentials.identifier || credentials.email).split('@')[0],
                 };
-                db.foodLogs = [...dummyFoodLogs];
+                // db.foodLogs = [...dummyFoodLogs];
                 db.activityLogs = [...dummyActivityLogs];
                 saveDB(db);
             }
@@ -65,7 +67,7 @@ const mockApi = {
                 dailyCalorieBurn: 400,
                 createdAt: new Date().toISOString(),
             };
-            db.foodLogs = [];
+            // db.foodLogs = [];
             db.activityLogs = [];
             saveDB(db);
 
@@ -93,36 +95,36 @@ const mockApi = {
             return { data: db.user };
         }
     },
-    foodLogs: {
-        list: async () => {
-            await delay(300);
-            const db = getDB();
-            return { data: db.foodLogs };
-        },
-        create: async (payload: { data: FormData | any }) => {
-            await delay(300);
-            const db = getDB();
-            const newEntry: FoodEntry = {
-                id: Date.now(),
-                documentId: "doc_food_" + Date.now(),
-                name: payload.data.name,
-                calories: payload.data.calories,
-                mealType: payload.data.mealType,
-                date: new Date().toISOString().split("T")[0],
-                createdAt: new Date().toISOString(),
-            };
-            db.foodLogs.push(newEntry);
-            saveDB(db);
-            return { data: newEntry };
-        },
-        delete: async (documentId: string) => {
-            await delay(300);
-            const db = getDB();
-            db.foodLogs = db.foodLogs.filter(f => f.documentId !== documentId);
-            saveDB(db);
-            return { data: { id: documentId } };
-        }
-    },
+    // foodLogs: {
+    //     list: async () => {
+    //         await delay(300);
+    //         const db = getDB();
+    //         return { data: db.foodLogs };
+    //     },
+    //     create: async (payload: { data: FormData | any }) => {
+    //         await delay(300);
+    //         const db = getDB();
+    //         const newEntry: FoodEntry = {
+    //             id: Date.now(),
+    //             documentId: "doc_food_" + Date.now(),
+    //             name: payload.data.name,
+    //             calories: payload.data.calories,
+    //             mealType: payload.data.mealType,
+    //             date: new Date().toISOString().split("T")[0],
+    //             createdAt: new Date().toISOString(),
+    //         };
+    //         db.foodLogs.push(newEntry);
+    //         saveDB(db);
+    //         return { data: newEntry };
+    //     },
+    //     delete: async (documentId: string) => {
+    //         await delay(300);
+    //         const db = getDB();
+    //         db.foodLogs = db.foodLogs.filter(f => f.documentId !== documentId);
+    //         saveDB(db);
+    //         return { data: { id: documentId } };
+    //     }
+    // },
     activityLogs: {
         list: async () => {
             await delay(300);

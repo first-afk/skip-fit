@@ -50,16 +50,7 @@ export interface FormData {
     mealType: string;
 }
 
-// Food Entry
-export interface FoodEntry {
-    id: number | string;
-    name: string;
-    calories: number;
-    mealType: "breakfast" | "lunch" | "dinner" | "snack";
-    date: string;
-    createdAt?: string;
-    documentId?: string;
-}
+
 
 // Activity Entry
 export interface ActivityEntry {
