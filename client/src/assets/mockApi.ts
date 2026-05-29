@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { dummyUser, dummyActivityLogs } from "../assets/assets";
-import type { UserData, ActivityEntry, FormData } from "../types";
+import type { UserData, ActivityEntry } from "../types";
 
 interface DB {
     user: any;
