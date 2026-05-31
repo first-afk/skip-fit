@@ -5,7 +5,15 @@ import { useAppContext } from "../context/AppContext";
 import { useTheme } from "../context/ThemeContext";
 import type { ProfileFormData, UserData } from "../types";
 import Card from "../components/ui/Card";
-import { Calendar, LogOut, MoonIcon, Scale, SunIcon, Target, User2 } from "lucide-react";
+import {
+  Calendar,
+  LogOut,
+  MoonIcon,
+  Scale,
+  SunIcon,
+  Target,
+  User2,
+} from "lucide-react";
 import Button from "../components/ui/Button";
 import { goalLabels, goalOptions } from "../assets/assets";
 import Input from "../components/ui/Input";
@@ -44,25 +52,26 @@ const Profile = () => {
     })();
   }, [user]);
 
-  const handleSave = async () =>{
+  const handleSave = async () => {
     try {
       const updates: Partial<UserData> = {
-        ...formData, goal: formData.goal as 'lose' | 'maintain' | 'gain'
+        ...formData,
+        goal: formData.goal as "lose" | "maintain" | "gain",
       };
-      await mockApi.user.update(user?.id || "", updates)
-      await fetchUser(user?.token || '')
-      toast.success('Profile updated successfully')
+      await mockApi.user.update(user?.id || "", updates);
+      await fetchUser(user?.token || "");
+      toast.success("Profile updated successfully");
     } catch (error: any) {
-      console.log(error)
-      toast.error(error.message || 'Failed to update Profile')
+      console.log(error);
+      toast.error(error.message || "Failed to update Profile");
     }
-    setIsEditing(false)
-  }
+    setIsEditing(false);
+  };
 
-  const getStats = () =>{
+  const getStats = () => {
     const totalActivities = allActivityLogs?.length || 0;
-    return{totalActivities}
-  }
+    return { totalActivities };
+  };
 
   if (!user || !formData) return null;
 
@@ -140,17 +149,21 @@ const Profile = () => {
                 options={goalOptions}
               />
               <div className="flex gap-3 pt-2">
-                <Button className="flex-1" variant="secondary" onClick={()=>{
-                  setIsEditing(false);
-                  setFormData({
-                    age: Number(user.age),
-                    weight: Number(user.weight),
-                    height: Number(user.height),
-                    goal: user.goal || '',
-                    dailyCalorieIntake: user.dailyCalorieIntake || 2000,
-                    dailyCalorieBurn: user.dailyCalorieBurn || 400,
-                  })
-                }}>
+                <Button
+                  className="flex-1"
+                  variant="secondary"
+                  onClick={() => {
+                    setIsEditing(false);
+                    setFormData({
+                      age: Number(user.age),
+                      weight: Number(user.weight),
+                      height: Number(user.height),
+                      goal: user.goal || "",
+                      dailyCalorieIntake: user.dailyCalorieIntake || 2000,
+                      dailyCalorieBurn: user.dailyCalorieBurn || 400,
+                    });
+                  }}
+                >
                   Cancel
                 </Button>
                 <Button onClick={handleSave} className="flex-1">
@@ -233,25 +246,43 @@ const Profile = () => {
         {/* right col */}
         <div className="space-y-4">
           <Card>
-            <h3 className="font-semibold text-slate-800 dark:text-white mb-4">Your Stats</h3>
+            <h3 className="font-semibold text-slate-800 dark:text-white mb-4">
+              Your Stats
+            </h3>
             <div className="grid grid-cols-1">
               <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/10 rounded-xl">
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{getStats().totalActivities}</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Total Activities</p>
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  {getStats().totalActivities}
+                </p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Total Activities
+                </p>
               </div>
             </div>
           </Card>
           <div className="lg:hidden">
-            <button onClick={toggleTheme} className="flex items-center gap-3 px-4 py-2.5 w-full text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors duration-200 cursor-pointer">
-              {theme === 'light' ? <MoonIcon className="size-5"/> : <SunIcon className="size-5"/>}
-              <span className="text-base">{theme === 'light' ? 'Dark Mode' : "Light Mode"}</span>
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-3 px-4 py-2.5 w-full text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors duration-200 cursor-pointer"
+            >
+              {theme === "light" ? (
+                <MoonIcon className="size-5" />
+              ) : (
+                <SunIcon className="size-5" />
+              )}
+              <span className="text-base">
+                {theme === "light" ? "Dark Mode" : "Light Mode"}
+              </span>
             </button>
           </div>
-          <Button variant="danger" onClick={logout} className="w-full ring ring-red-300 hover:ring-2">
-            <LogOut className="size-4"/>
+          <Button
+            variant="danger"
+            onClick={logout}
+            className="w-full ring ring-red-300 hover:ring-2"
+          >
+            <LogOut className="size-4" />
             Logout
           </Button>
-
         </div>
       </div>
     </div>

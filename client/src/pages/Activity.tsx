@@ -16,6 +16,8 @@ const Activity = () => {
   const { allActivityLogs, setAllActivityLogs } = useAppContext();
   const [activities, setActivities] = useState<ActivityEntry[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [scheduleButton, setScheduleButton] = useState(false);
+  const [reminderTime, setReminderTime] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     duration: 0,
@@ -55,6 +57,50 @@ const Activity = () => {
       console.log(error);
       toast.error(error?.message || "Failed to log activities");
     }
+  };
+
+  const handleSetReminder = (activityName: string) => {
+    if (!reminderTime) {
+      toast("Please select time");
+    }
+    const date = new Date(reminderTime);
+    const now = new Date();
+    const formatIcsDate = (d: Date) =>
+      d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+
+    const startTime = formatIcsDate(date);
+    const endTime = formatIcsDate(new Date(date.getTime() + 30 * 60 * 1000));
+    const stampTime = formatIcsDate(now);
+    const randomToken = Math.random().toString(36).substring(2, 11);
+    const uniqueNumber = `${stampTime}-${randomToken}@http://localhost:5173`;
+
+    const icsContent = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Skip Fit//Activity Tracker//EN",
+      "BEGIN:VEVENT",
+      `SUMMARY:Skip Fit: Time to ${activityName}!`,
+      `DTSTART:${startTime}`,
+      `DTEND:${endTime}`,
+      `DTSTAMP: ${stampTime}`,
+      "DESCRIPTION:Your scheduled workout reminder from Skip Fit.",
+      `UID: ${uniqueNumber}`,
+      "SEQUENCE:0",
+      "STATUS:CONFIRMED",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+
+    const blob = new Blob([icsContent], {
+      type: "text/calendar;charset=utf-8;",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${activityName}-reminder.ics`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const deletActivity = (id: string) => {};
@@ -129,6 +175,16 @@ const Activity = () => {
               <Plus size="15" />
               Add Custom Actvity
             </Button>
+            <Button
+              className="w-full"
+              onClick={() => {
+                setShowForm(true);
+                setScheduleButton(true);
+              }}
+            >
+              <Plus size="15" />
+              Add Scheduled Actvity
+            </Button>
           </div>
         )}
         {/* custom form */}
@@ -147,7 +203,7 @@ const Activity = () => {
                   setFormData({ ...formData, name: v.toString() })
                 }
               />
-              <div className="fkex gap-4">
+              <div className="flex flex-col gap-4">
                 <Input
                   label="Duration (mins)"
                   type="number"
@@ -170,6 +226,16 @@ const Activity = () => {
                     setFormData({ ...formData, calories: Number(v) })
                   }
                 />
+                {scheduleButton && (
+                  <input
+                    // label="Schedule Time"
+                    type="datetime-local"
+                    placeholder="200"
+                    required
+                    value={reminderTime}
+                    onChange={(e) => setReminderTime(e.target.value)}
+                  />
+                )}
               </div>
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <div className="flex gap-3 pt-2">
@@ -185,9 +251,19 @@ const Activity = () => {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="secondary">
-                  Add Activity
-                </Button>
+                {scheduleButton ? (
+                  <Button
+                    type="submit"
+                    onClick={() => handleSetReminder(formData.name)}
+                    variant="secondary"
+                  >
+                    Set Reminder
+                  </Button>
+                ) : (
+                  <Button type="submit" variant="secondary">
+                    Add Activity
+                  </Button>
+                )}
               </div>
             </form>
           </Card>
@@ -259,8 +335,12 @@ const Activity = () => {
             </div>
             {/* total summary */}
             <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-              <span className="text-slate-500 dark:text-slate-400">Total Active Time</span>
-              <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{totalActiveMins} minutes</span>
+              <span className="text-slate-500 dark:text-slate-400">
+                Total Active Time
+              </span>
+              <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                {totalActiveMins} minutes
+              </span>
             </div>
           </Card>
         )}
