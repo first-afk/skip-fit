@@ -43,9 +43,10 @@ npm run dev
 
 - If `npm run dev` fails, ensure you are in the `client` directory and Node is up to date.
 
+### Deployed URL
+
+`skip-fit.vercel.app`
+
 ## License
 
 This project is provided as-is for learning and prototyping.
-
-## Deployed URL
-skip-fit.vercel.app
