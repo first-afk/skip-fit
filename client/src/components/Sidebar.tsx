@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Activity, Home, PersonStanding, User2 } from "lucide-react";
 // import { useTheme } from "../context/ThemeContext";
 import { NavLink } from "react-router-dom";
