@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <nav className="hidden lg:flex flex-col w-64 bg-whit dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 p-6 transition-colors duration-200">
       <div className="flex items-center gap-3 mb-8">
-        <div className="size-10 rounded-xl bg-emerald-500 flex items-center">
+        <div className="size-10 rounded-xl bg-emerald-500 flex justify-center items-center">
           <PersonStanding className="size-7 text-white" />
         </div>
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
