@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { createContext, useContext, useEffect, useState } from "react";
 import { initialState, type ActivityEntry, type Credentials, type User } from "../types";
 import { useNavigate } from "react-router-dom";

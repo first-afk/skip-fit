@@ -103,7 +103,18 @@ const Activity = () => {
     document.body.removeChild(link);
   };
 
-  const deletActivity = (id: string) => {};
+  const deleteActivity = async (id: string) => {
+    try {
+      await mockApi.activityLogs.delete(id);
+      setAllActivityLogs((prev: ActivityEntry[]) =>
+        prev.filter((a) => a.documentId !== id),
+      );
+      toast.success("Deleted Activity");
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.message || "Failed to delete Actvity");
+    }
+  };
 
   const handleQuickAdd = (activity: { name: string; rate: number }) => {
     setFormData({
@@ -324,7 +335,7 @@ const Activity = () => {
                       </p>
                     </div>
                     <button
-                      onClick={() => deletActivity(activity.documentId)}
+                      onClick={() => deleteActivity(activity.documentId)}
                       className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
