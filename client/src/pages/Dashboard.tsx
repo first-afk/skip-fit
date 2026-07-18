@@ -46,7 +46,8 @@ const Dashboard = () => {
       <div className="dashboard-header">
         <p className="text-emerald-100 text-sm font-medium">Welcome back</p>
         <h1 className="text-2xl font-bold mt-1">
-          Hi there, <span className="capitalize"> {user?.username} </span> sweetie!
+          Hi there, <span className="capitalize"> {user?.username} </span>{" "}
+          sweetie!
         </h1>
         {/* motivation card */}
         <div className="mt-6 bg-white/20 backdrop-blur-sm rounded-2xl p-4">
@@ -238,6 +239,8 @@ const Dashboard = () => {
           </Card>
         )}
       </div>
+
+      {/* chatbot is rendered globally in Layout */}
     </div>
   );
 };

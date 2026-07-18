@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import BottomNav from "../components/BottomNav";
 import { Toaster } from "react-hot-toast";
+import Chat from "../components/Chat";
 
 const Layout = () => {
   return (
@@ -12,6 +13,7 @@ const Layout = () => {
         <Outlet />
       </div>
       <BottomNav />
+      <Chat />
     </div>
   );
 };
