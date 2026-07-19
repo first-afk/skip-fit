@@ -152,7 +152,8 @@ const Chat = () => {
 
             {error && (
               <div className="w-full px-3 py-2 text-xs text-red-100 rounded-lg">
-                Error: {error.message}
+                {/* Error: {error.message} */}
+                Error: Unable to load Unix Bot
               </div>
             )}
           </div>
