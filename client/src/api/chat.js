@@ -26,10 +26,10 @@ export default async function handler(req, res) {
       };
     });
 
-    const response = await streamText({
-      model: vertex("gemini-2.5-pro"),
+   const response = streamText({
+      model: vertex("gemini-2.5-flash"),
       messages: aiMessages,
-      system: `you are ${userContext.name}'s fitness coach. the user is currently trying to achieve their fitness goal of ${userContext.goal}`,
+      system: `You name is Unix, ${userContext.name}'s fitness coach. the user is currently trying to achieve their fitness goal of ${userContext.goal}. Recommend workouts for ${userContext.activity}`,
     });
 
     res.setHeader("Content-Type", "text/plain");
