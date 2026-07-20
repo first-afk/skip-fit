@@ -6,8 +6,27 @@ import { streamText } from "ai";
 
 dotenv.config();
 
+let credentials = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+let parsedCredentials = {};
+try {
+  if (credentials) {
+    parsedCredentials = JSON.parse(credentials);
+  }
+} catch (error) {
+  console.error("Failed to parse service json", error);
+}
+const privateKey = parsedCredentials.private_key
+  ? parsedCredentials.private_key.replace(/\\n/g, "/n")
+  : undefined;
+const clientEmail = parsedCredentials.client_email;
+
 const vertex = createGoogleVertex({
-  credential: process.env.GOOGLE_SERVICE_ACCOUNT_JSON,
+  googleAuthOptions: {
+    credentials: {
+      client_email: clientEmail,
+      private_key: privateKey,
+    },
+  },
   apiKey: process.env.GOOGLE_VERTEX_API_KEY,
   location: process.env.GOOGLE_VERTEX_LOCATION,
   project: process.env.GOOGLE_VERTEX_PROJECT,
