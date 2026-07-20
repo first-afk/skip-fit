@@ -44,6 +44,10 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.listen(3001, () =>
-  console.log("API server listening on http://localhost:3001"),
-);
+if (process.env.NODE_ENV !== "production") {
+  app.listen(3001, () =>
+    console.log("API server listening on http://localhost:3001"),
+  );
+}
+
+export default app;
