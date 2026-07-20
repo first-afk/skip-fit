@@ -7,7 +7,7 @@ import { streamText } from "ai";
 dotenv.config();
 
 const vertex = createGoogleVertex({
-  credential: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+  credential: process.env.GOOGLE_SERVICE_ACCOUNT_JSON,
   apiKey: process.env.GOOGLE_VERTEX_API_KEY,
   location: process.env.GOOGLE_VERTEX_LOCATION,
   project: process.env.GOOGLE_VERTEX_PROJECT,
