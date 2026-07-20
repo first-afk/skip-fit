@@ -6,7 +6,7 @@ import { streamText } from "ai";
 
 dotenv.config();
 
-let credentials = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+let credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 let parsedCredentials = {};
 try {
   if (credentials) {
